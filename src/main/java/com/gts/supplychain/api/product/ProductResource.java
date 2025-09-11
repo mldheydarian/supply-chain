@@ -14,34 +14,41 @@ import com.gts.supplychain.model.entity.Product;
 import com.gts.supplychain.service.product.impl.ProductServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/products")
 public class ProductResource {
 
-    private final ProductServiceImpl productServiceImpl;
+	private final ProductServiceImpl productServiceImpl;
 
 	private final ProductResourceMapper mapper;
 
 
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ProductResponse> createProduct(	@Valid  @RequestBody ProductCreateRequest request) {
-		Product product = productServiceImpl
-				.createProduct(request);
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductCreateRequest request) {
+		log.info("START create product with request: {}", request);
+		Product product = productServiceImpl.createProduct(request);
+		log.info("END create product successfully, productId: {}", product.getId());
 		return ResponseEntity.ok(mapper.toProductResponse(product));
+	}
 
-    }
+	@GetMapping(path = "/{productId}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ProductResponse> getProduct(@PathVariable String productId) {
+		log.info("START get product with productId: {}", productId);
+		Product product = productServiceImpl.getByProductId(productId);
+		ProductResponse response = mapper.toProductResponse(product);
+		log.info("END get product successfully, productId: {}", product.getId());
+		return ResponseEntity.ok(response);
+	}
 
-    @GetMapping("/{productId}")
-    public ResponseEntity<ProductResponse> getProduct(@PathVariable String productId){
-        return ResponseEntity.ok(mapper
-				.toProductResponse(productServiceImpl.getByProductId(productId)));
-    }
-
-    @GetMapping()
-    public ResponseEntity<List<ProductResponse>> getAllProducts() {
-       return ResponseEntity.ok(mapper.toListOfProductResponse(productServiceImpl.getAllProducts()));
-    }
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ProductResponse>> getAllProducts() {
+		log.info("START get all products");
+		List<Product> products = productServiceImpl.getAllProducts();
+		List<ProductResponse> response = mapper.toListOfProductResponse(products);
+		log.info("END get all products successfully, count: {}", response.size());
+		return ResponseEntity.ok(response);	}
 }

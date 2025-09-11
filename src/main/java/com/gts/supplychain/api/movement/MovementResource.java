@@ -3,6 +3,7 @@ package com.gts.supplychain.api.movement;
 
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,19 +21,23 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api/products/{productId}/movements")
 public class MovementResource {
 
-    private final MovementService movementService;
+	private final MovementService movementService;
 
 	private final MovementResourceMapper mapper;
 
-	@PostMapping
-    public ResponseEntity<MovementResponse> recordMovement(@PathVariable String productId, @RequestBody MovementCreateRequest request) {
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<MovementResponse> recordMovement(@PathVariable String productId, @RequestBody MovementCreateRequest request) {
+		log.info("start recording movement for productId: {}, request: {}", productId, request);
 		Movement movement = movementService.recordMovement(productId, request);
+		log.info("ens recording movement for productId: {}, movementId: {}", productId, movement.getId());
 		return ResponseEntity.ok(mapper.toMovementResponse(movement));
-    }
+	}
 
-    @GetMapping
-    public ResponseEntity<List<MovementResponse>> getMovements(@PathVariable String productId) {
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<MovementResponse>> getMovements(@PathVariable String productId) {
+		log.info("start get movements for productId: {}", productId);
 		List<Movement> movements = movementService.getMovements(productId);
+		log.info("ens get movements for productId: {} , count: {}", productId, movements.size());
 		return ResponseEntity.ok(mapper.toListOfMovementResponse(movements));
-    }
+	}
 }

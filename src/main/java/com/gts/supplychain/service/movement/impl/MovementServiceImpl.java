@@ -12,26 +12,35 @@ import com.gts.supplychain.service.movement.MovementService;
 import com.gts.supplychain.service.movement.mapper.MovementServiceMapper;
 import com.gts.supplychain.service.product.impl.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MovementServiceImpl implements MovementService {
 
-    private final MovementRepository movementRepository;
-	private final ProductServiceImpl productServiceImpl;
-    private final MovementServiceMapper mapper;
+	private final MovementRepository movementRepository;
 
+	private final ProductServiceImpl productServiceImpl;
+
+	private final MovementServiceMapper mapper;
 
 
 	@Override
 	public Movement recordMovement(String productId, MovementCreateRequest movementCreateRequest) {
+		log.debug("record movement called for productId: {}, request: {}", productId, movementCreateRequest);
 		Product product = productServiceImpl.getByProductId(productId);
-		return  movementRepository.save(mapper.toMovement(product, movementCreateRequest));
+		Movement movement = movementRepository.save(mapper.toMovement(product, movementCreateRequest));
+		log.debug("recording movement saved successfully, movementId: {}", movement.getId());
+		return movement;
 	}
 
 	@Override
-    public List<Movement> getMovements(String productId) {
+	public List<Movement> getMovements(String productId) {
+		log.debug("get movements called for productId: {}", productId);
 		Product product = productServiceImpl.getByProductId(productId);
-		return movementRepository.findByProductOrderByMovementDateAsc(product);
+		List<Movement> movements = movementRepository.findByProductOrderByMovementDateAsc(product);
+		log.debug("get movements returned {} records", movements.size());
+		return movements;
 	}
 }

@@ -24,18 +24,26 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product getByProductId(String productId) {
-		return productRepository.findByProductId(productId)
+		log.debug("getByProductId called with productId: {}", productId);
+		Product product = productRepository.findByProductId(productId)
 				.orElseThrow(() -> new RuntimeException("Product not found"));
+		log.debug("getByProductId returning productId: {}", product.getId());
+		return product;
 	}
 
 	@Override
 	public List<Product> getAllProducts() {
-		return productRepository.findAll();
+		log.debug("getAllProducts called");
+		List<Product> products = productRepository.findAll();
+		log.debug("getAllProducts returning {} products", products.size());
+		return products;
 	}
 
 	@Override
 	public Product createProduct(ProductCreateRequest model) {
-		return productRepository.save(mapper.toProduct(model));
-
+		log.debug("createProduct called with request: {}", model);
+		Product product = productRepository.save(mapper.toProduct(model));
+		log.debug("createProduct saved successfully, productId: {}", product.getId());
+		return product;
 	}
 }
