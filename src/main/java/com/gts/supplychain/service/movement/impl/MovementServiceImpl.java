@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import com.gts.supplychain.api.movement.dto.MovementCreateRequest;
+import com.gts.supplychain.exception.BusinessException;
 import com.gts.supplychain.model.repository.MovementRepository;
 import com.gts.supplychain.model.entity.Movement;
 import com.gts.supplychain.model.entity.Product;
@@ -27,7 +28,7 @@ public class MovementServiceImpl implements MovementService {
 
 
 	@Override
-	public Movement recordMovement(String productId, MovementCreateRequest movementCreateRequest) {
+	public Movement recordMovement(String productId, MovementCreateRequest movementCreateRequest) throws BusinessException {
 		log.debug("record movement called for productId: {}, request: {}", productId, movementCreateRequest);
 		Product product = productServiceImpl.getByProductId(productId);
 		Movement movement = movementRepository.save(mapper.toMovement(product, movementCreateRequest));
@@ -36,7 +37,7 @@ public class MovementServiceImpl implements MovementService {
 	}
 
 	@Override
-	public List<Movement> getMovements(String productId) {
+	public List<Movement> getMovements(String productId) throws BusinessException {
 		log.debug("get movements called for productId: {}", productId);
 		Product product = productServiceImpl.getByProductId(productId);
 		List<Movement> movements = movementRepository.findByProductOrderByMovementDateAsc(product);

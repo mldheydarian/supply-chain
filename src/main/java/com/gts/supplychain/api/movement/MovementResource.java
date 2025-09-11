@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.gts.supplychain.api.movement.dto.MovementResponse;
 import com.gts.supplychain.api.movement.dto.MovementCreateRequest;
 import com.gts.supplychain.api.movement.mapper.MovementResourceMapper;
+import com.gts.supplychain.exception.BusinessException;
 import com.gts.supplychain.model.entity.Movement;
 import com.gts.supplychain.service.movement.MovementService;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class MovementResource {
 	private final MovementResourceMapper mapper;
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<MovementResponse> recordMovement(@PathVariable String productId, @RequestBody MovementCreateRequest request) {
+	public ResponseEntity<MovementResponse> recordMovement(@PathVariable String productId, @RequestBody MovementCreateRequest request) throws BusinessException {
 		log.info("start recording movement for productId: {}, request: {}", productId, request);
 		Movement movement = movementService.recordMovement(productId, request);
 		log.info("ens recording movement for productId: {}, movementId: {}", productId, movement.getId());
@@ -34,7 +35,7 @@ public class MovementResource {
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<MovementResponse>> getMovements(@PathVariable String productId) {
+	public ResponseEntity<List<MovementResponse>> getMovements(@PathVariable String productId) throws BusinessException {
 		log.info("start get movements for productId: {}", productId);
 		List<Movement> movements = movementService.getMovements(productId);
 		log.info("ens get movements for productId: {} , count: {}", productId, movements.size());

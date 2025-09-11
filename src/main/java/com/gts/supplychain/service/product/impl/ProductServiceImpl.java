@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import com.gts.supplychain.api.product.dto.ProductCreateRequest;
+import com.gts.supplychain.exception.BusinessException;
+import com.gts.supplychain.exception.NotFoundException;
 import com.gts.supplychain.model.repository.ProductRepository;
 import com.gts.supplychain.model.entity.Product;
 import com.gts.supplychain.service.product.ProductService;
@@ -23,10 +25,10 @@ public class ProductServiceImpl implements ProductService {
 
 
 	@Override
-	public Product getByProductId(String productId) {
+	public Product getByProductId(String productId) throws BusinessException {
 		log.debug("getByProductId called with productId: {}", productId);
 		Product product = productRepository.findByProductId(productId)
-				.orElseThrow(() -> new RuntimeException("Product not found"));
+				.orElseThrow(() -> new NotFoundException("Product not found"));
 		log.debug("getByProductId returning productId: {}", product.getId());
 		return product;
 	}

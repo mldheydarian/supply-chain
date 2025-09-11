@@ -10,6 +10,7 @@ import java.util.List;
 import com.gts.supplychain.api.product.dto.ProductResponse;
 import com.gts.supplychain.api.product.dto.ProductCreateRequest;
 import com.gts.supplychain.api.product.mapper.ProductResourceMapper;
+import com.gts.supplychain.exception.BusinessException;
 import com.gts.supplychain.model.entity.Product;
 import com.gts.supplychain.service.product.impl.ProductServiceImpl;
 import jakarta.validation.Valid;
@@ -36,7 +37,7 @@ public class ProductResource {
 	}
 
 	@GetMapping(path = "/{productId}",produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ProductResponse> getProduct(@PathVariable String productId) {
+	public ResponseEntity<ProductResponse> getProduct(@PathVariable String productId) throws BusinessException {
 		log.info("START get product with productId: {}", productId);
 		Product product = productServiceImpl.getByProductId(productId);
 		ProductResponse response = mapper.toProductResponse(product);
