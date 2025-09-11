@@ -11,18 +11,18 @@ import com.gts.supplychain.service.product.ProductService;
 import com.gts.supplychain.service.product.mapper.ProductServiceMapper;
 import lombok.extern.slf4j.Slf4j;
 
-@Service
-@Slf4j
-public class ProductServiceImpl implements ProductService {
+	@Service
+	@Slf4j
+	public class ProductServiceImpl implements ProductService {
 
-    private final ProductRepository productRepository;
+		private final ProductRepository productRepository;
 
-	private final ProductServiceMapper mapper;
+		private final ProductServiceMapper mapper;
 
-	public ProductServiceImpl(ProductRepository productRepository, ProductServiceMapper mapper) {
-		this.productRepository = productRepository;
-		this.mapper = mapper;
-	}
+		public ProductServiceImpl(ProductRepository productRepository, ProductServiceMapper mapper) {
+			this.productRepository = productRepository;
+			this.mapper = mapper;
+		}
 
 
 	@Override
