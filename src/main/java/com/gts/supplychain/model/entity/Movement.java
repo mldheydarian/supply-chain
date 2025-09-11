@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Movement extends Auditable<String> implements Serializable {
+public class Movement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

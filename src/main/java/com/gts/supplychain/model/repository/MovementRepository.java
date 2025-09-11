@@ -1,4 +1,4 @@
-package com.gts.supplychain.model.dao;
+package com.gts.supplychain.model.repository;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,5 +7,7 @@ import com.gts.supplychain.model.entity.Movement;
 import com.gts.supplychain.model.entity.Product;
 
 public interface MovementRepository extends JpaRepository<Movement, Long> {
-    List<Movement> findByProductOrderByMovementDateAsc(Product product);
+
+	List<Movement> findByProductOrderByMovementDateAsc(Product product);
+
 }

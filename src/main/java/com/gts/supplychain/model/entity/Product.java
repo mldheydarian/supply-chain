@@ -30,7 +30,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "products", indexes = {@Index(name = "idx_product_productId", columnList = "productId")})
-public class Product extends Auditable<String> implements Serializable {
+public class Product {
 
 	@Serial
 	private static final long serialVersionUID = 13244321423L;
