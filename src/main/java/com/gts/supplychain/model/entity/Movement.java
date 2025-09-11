@@ -13,16 +13,18 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "movements")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Movement {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Table(name = "movements",
+		indexes = {
+		@Index(name = "idx_movement_product", columnList = "product_id"),
+		@Index(name = "idx_movement_date", columnList = "movement_date")
+		},
+		uniqueConstraints = {@UniqueConstraint(name = "uk_product_movement",
+		columnNames = {"product_id", "movement_date", "from_location", "to_location"})})
+public class Movement extends Auditable implements Serializable {
 
     @NotBlank
     private String fromLocation;
@@ -39,9 +41,9 @@ public class Movement {
 
 	public void setProduct(Product product) {
 		this.product = product;
-//		if (!product.getMovements().contains(this)) {
-//			product.getMovements().add(this);
-//		}
+		if (!product.getMovements().contains(this)) {
+			product.getMovements().add(this);
+		}
 	}
 
 }
