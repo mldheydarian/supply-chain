@@ -1,9 +1,9 @@
-package com.gts.supplychain.api.resource.movement.mapper;
+package com.gts.supplychain.api.movement.mapper;
 
 
 import java.util.List;
 
-import com.gts.supplychain.api.dto.MovementResponse;
+import com.gts.supplychain.api.movement.dto.MovementResponse;
 import com.gts.supplychain.model.entity.Movement;
 import org.mapstruct.Mapper;
 

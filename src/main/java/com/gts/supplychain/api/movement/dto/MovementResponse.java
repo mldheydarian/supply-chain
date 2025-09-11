@@ -1,10 +1,9 @@
-package com.gts.supplychain.api.dto;
+package com.gts.supplychain.api.movement.dto;
 
 import java.time.LocalDateTime;
 
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import com.gts.supplychain.api.product.dto.ProductResponse;
 import lombok.Data;
 
 @Data

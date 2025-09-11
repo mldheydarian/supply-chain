@@ -1,4 +1,4 @@
-package com.gts.supplychain.api.resource.movement;
+package com.gts.supplychain.api.movement;
 
 
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.gts.supplychain.api.dto.MovementResponse;
+import com.gts.supplychain.api.movement.dto.MovementResponse;
 import com.gts.supplychain.api.movement.dto.MovementCreateRequest;
-import com.gts.supplychain.api.resource.movement.mapper.MovementResourceMapper;
+import com.gts.supplychain.api.movement.mapper.MovementResourceMapper;
 import com.gts.supplychain.model.entity.Movement;
 import com.gts.supplychain.service.movement.MovementService;
 
