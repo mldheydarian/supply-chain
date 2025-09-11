@@ -11,20 +11,18 @@ import com.gts.supplychain.api.movement.dto.MovementCreateRequest;
 import com.gts.supplychain.api.movement.mapper.MovementResourceMapper;
 import com.gts.supplychain.model.entity.Movement;
 import com.gts.supplychain.service.movement.MovementService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/api/products/{productId}/movements")
 public class MovementResource {
 
     private final MovementService movementService;
 
 	private final MovementResourceMapper mapper;
-
-	public MovementResource(MovementService movementService, MovementResourceMapper mapper) {
-		this.movementService = movementService;
-		this.mapper = mapper;
-	}
-
 
 	@PostMapping
     public ResponseEntity<MovementResponse> recordMovement(@PathVariable String productId, @RequestBody MovementCreateRequest request) {

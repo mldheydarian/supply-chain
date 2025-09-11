@@ -11,19 +11,16 @@ import com.gts.supplychain.model.entity.Product;
 import com.gts.supplychain.service.movement.MovementService;
 import com.gts.supplychain.service.movement.mapper.MovementServiceMapper;
 import com.gts.supplychain.service.product.impl.ProductServiceImpl;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class MovementServiceImpl implements MovementService {
 
     private final MovementRepository movementRepository;
 	private final ProductServiceImpl productServiceImpl;
     private final MovementServiceMapper mapper;
 
-	public MovementServiceImpl(MovementRepository movementRepository, ProductServiceImpl productServiceImpl, MovementServiceMapper mapper) {
-		this.movementRepository = movementRepository;
-		this.productServiceImpl = productServiceImpl;
-		this.mapper = mapper;
-	}
 
 
 	@Override

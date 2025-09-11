@@ -13,19 +13,16 @@ import com.gts.supplychain.api.product.mapper.ProductResourceMapper;
 import com.gts.supplychain.model.entity.Product;
 import com.gts.supplychain.service.product.impl.ProductServiceImpl;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/products")
 public class ProductResource {
 
     private final ProductServiceImpl productServiceImpl;
 
 	private final ProductResourceMapper mapper;
-
-	public ProductResource(ProductServiceImpl productServiceImpl, ProductResourceMapper mapper) {
-		this.productServiceImpl = productServiceImpl;
-		this.mapper = mapper;
-	}
 
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,

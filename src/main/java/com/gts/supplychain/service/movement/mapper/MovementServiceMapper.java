@@ -12,9 +12,9 @@ import org.mapstruct.Mapping;
 public interface MovementServiceMapper {
 
 	@BeanMapping(ignoreByDefault = true)
-	@Mapping(target = "fromLocation",source = "movementRequest.fromLocation")
-	@Mapping(target = "toLocation",source = "movementRequest.toLocation")
-	@Mapping(target = "movementDate",source = "movementRequest.movementDate")
+	@Mapping(target = "fromLocation",source = "movementCreateRequest.fromLocation")
+	@Mapping(target = "toLocation",source = "movementCreateRequest.toLocation")
+	@Mapping(target = "movementDate",source = "movementCreateRequest.movementDate")
 	@Mapping(target = "product",source = "product")
 	Movement toMovement( Product product, MovementCreateRequest movementCreateRequest);
 

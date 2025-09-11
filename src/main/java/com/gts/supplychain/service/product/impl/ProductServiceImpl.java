@@ -9,20 +9,17 @@ import com.gts.supplychain.model.repository.ProductRepository;
 import com.gts.supplychain.model.entity.Product;
 import com.gts.supplychain.service.product.ProductService;
 import com.gts.supplychain.service.product.mapper.ProductServiceMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-	@Service
-	@Slf4j
-	public class ProductServiceImpl implements ProductService {
+@Service
+@Slf4j
+@RequiredArgsConstructor
+public class ProductServiceImpl implements ProductService {
 
-		private final ProductRepository productRepository;
+	private final ProductRepository productRepository;
 
-		private final ProductServiceMapper mapper;
-
-		public ProductServiceImpl(ProductRepository productRepository, ProductServiceMapper mapper) {
-			this.productRepository = productRepository;
-			this.mapper = mapper;
-		}
+	private final ProductServiceMapper mapper;
 
 
 	@Override
@@ -32,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 	}
 
 	@Override
-    public List<Product> getAllProducts() {
+	public List<Product> getAllProducts() {
 		return productRepository.findAll();
 	}
 
