@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gts.supplychain.AbstractIntegrationTest;
 import com.gts.supplychain.api.product.dto.ProductCreateRequest;
 import com.gts.supplychain.api.product.dto.ProductResponse;
+import com.gts.supplychain.dto.common.response.PageableResponse;
 import com.gts.supplychain.model.entity.Product;
 import com.gts.supplychain.model.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +16,8 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -103,36 +106,45 @@ class ProductIntegrationTest extends AbstractIntegrationTest {
 	}
 
 	@Test
-	@DisplayName("get all products - should return list of products")
-	void getAllProducts_1() {
+	@DisplayName("get all products - should return paged response")
+	void getAllProducts_shouldReturnPagedResponse() {
 		Product p1 = new Product();
-		p1.setProductId("P-003");
-		p1.setType("Type-C");
-		p1.setOrigin("Factory-Z");
+		p1.setProductId("P-101");
+		p1.setType("Type-A");
+		p1.setOrigin("Factory-X");
 		p1.setManufacturingDate(LocalDateTime.now());
 
 		Product p2 = new Product();
-		p2.setProductId("P-004");
-		p2.setType("Type-D");
-		p2.setOrigin("Factory-W");
+		p2.setProductId("P-102");
+		p2.setType("Type-B");
+		p2.setOrigin("Factory-Y");
 		p2.setManufacturingDate(LocalDateTime.now());
 
 		productRepository.saveAll(List.of(p1, p2));
 
-		ResponseEntity<ProductResponse[]> response = restTemplate.getForEntity(
-				"/products", ProductResponse[].class
+		ResponseEntity<PageableResponse<ProductResponse>> response = restTemplate.exchange(
+				"/products?page=0&size=10",
+				HttpMethod.GET,
+				null,
+				new ParameterizedTypeReference<PageableResponse<ProductResponse>>() {}
 		);
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		ProductResponse[] products = response.getBody();
-		assertNotNull(products);
-		assertEquals(2, products.length);
-		assertEquals("P-003", products[0].getProductId());
-		assertEquals("P-004", products[1].getProductId());
+		PageableResponse<ProductResponse> page = response.getBody();
+		assertNotNull(page);
+		assertEquals(2, page.getContent().size());
+		assertEquals(0, page.getPageNumber());
+		assertEquals(10, page.getPageSize());
+		assertEquals(2, page.getTotalElements());
+		assertTrue(page.isLast());
+
+		List<String> ids = page.getContent().stream()
+				.map(ProductResponse::getProductId)
+				.toList();
+
+		assertTrue(ids.contains("P-101"));
+		assertTrue(ids.contains("P-102"));
 	}
-
-
-
 
 
 }

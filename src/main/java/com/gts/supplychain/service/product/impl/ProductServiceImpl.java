@@ -1,8 +1,9 @@
 package com.gts.supplychain.service.product.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 import com.gts.supplychain.api.product.dto.ProductCreateRequest;
 import com.gts.supplychain.exception.BusinessException;
@@ -41,11 +42,10 @@ public class ProductServiceImpl implements ProductService {
 		return product;
 	}
 
-	@Override
-	public List<Product> getAllProducts() {
-		log.debug("getAllProducts called");
-		List<Product> products = productRepository.findAll();
-		log.debug("getAllProducts returning {} products", products.size());
+	public Page<Product> getAllProducts(Pageable pageable) {
+		log.debug("getAllProducts called: {}", pageable);
+		Page<Product> products = productRepository.findAll(pageable);
+		log.debug("getAllProducts returning {} products", products.getTotalElements());
 		return products;
 	}
 

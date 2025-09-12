@@ -1,14 +1,16 @@
 package com.gts.supplychain.api.product;
 
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-import com.gts.supplychain.api.product.dto.ProductResponse;
 import com.gts.supplychain.api.product.dto.ProductCreateRequest;
+import com.gts.supplychain.api.product.dto.ProductResponse;
+import com.gts.supplychain.dto.common.response.PageableResponse;
+import com.gts.supplychain.dto.common.request.PagingRequest;
+
 import com.gts.supplychain.api.product.mapper.ProductResourceMapper;
 import com.gts.supplychain.exception.BusinessException;
 import com.gts.supplychain.model.entity.Product;
@@ -46,10 +48,14 @@ public class ProductResource {
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ProductResponse>> getAllProducts() {
-		log.info("START get all products");
-		List<Product> products = productServiceImpl.getAllProducts();
-		List<ProductResponse> response = mapper.toListOfProductResponse(products);
-		log.info("END get all products successfully, count: {}", response.size());
-		return ResponseEntity.ok(response);	}
+	public ResponseEntity<PageableResponse<ProductResponse>> getAllProducts(@Valid PagingRequest pagingRequest) {
+		log.info("START get all products with paging: {}",pagingRequest);
+		Page<Product> productsPage = productServiceImpl.getAllProducts(pagingRequest.toPageable());
+		PageableResponse<ProductResponse> response = new PageableResponse<>(
+			productsPage.map(mapper::toProductResponse));
+		log.info("End get all products with paging successfully");
+		return ResponseEntity.ok(response);
+
+	}
+
 }

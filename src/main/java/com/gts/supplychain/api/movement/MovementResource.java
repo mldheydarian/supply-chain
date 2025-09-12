@@ -1,18 +1,20 @@
 package com.gts.supplychain.api.movement;
 
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.gts.supplychain.api.movement.dto.MovementResponse;
 import com.gts.supplychain.api.movement.dto.MovementCreateRequest;
+import com.gts.supplychain.api.movement.dto.MovementResponse;
+import com.gts.supplychain.dto.common.response.PageableResponse;
+import com.gts.supplychain.dto.common.request.PagingRequest;
 import com.gts.supplychain.api.movement.mapper.MovementResourceMapper;
 import com.gts.supplychain.exception.BusinessException;
 import com.gts.supplychain.model.entity.Movement;
 import com.gts.supplychain.service.movement.MovementService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,10 +37,16 @@ public class MovementResource {
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<MovementResponse>> getMovements(@PathVariable String productId) throws BusinessException {
-		log.info("start get movements for productId: {}", productId);
-		List<Movement> movements = movementService.getMovements(productId);
-		log.info("ens get movements for productId: {} , count: {}", productId, movements.size());
-		return ResponseEntity.ok(mapper.toListOfMovementResponse(movements));
+	public ResponseEntity<PageableResponse<MovementResponse>> getMovements(
+			@PathVariable String productId,@Valid PagingRequest pagingRequest) throws BusinessException {
+		log.info("START get movements page for productId: {} page: {}",productId, pagingRequest);
+		Page<Movement> movementsPage = movementService.getMovements(productId, pagingRequest.toPageable());
+		PageableResponse<MovementResponse> response = new PageableResponse<>(
+				movementsPage.map(mapper::toMovementResponse));
+		log.info("END get movements for productId={}, returning {} movements in this page",
+				productId, response.getContent().size());
+		return ResponseEntity.ok(response);
 	}
+
+
 }

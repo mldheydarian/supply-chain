@@ -1,8 +1,8 @@
 package com.gts.supplychain.service.movement.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 import com.gts.supplychain.api.movement.dto.MovementCreateRequest;
 import com.gts.supplychain.exception.BusinessException;
@@ -39,11 +39,11 @@ public class MovementServiceImpl implements MovementService {
 	}
 
 	@Override
-	public List<Movement> getMovements(String productId) throws BusinessException {
+	public Page<Movement> getMovements(String productId, Pageable pageable) throws BusinessException {
 		log.debug("get movements called for productId: {}", productId);
 		Product product = productServiceImpl.getByProductId(productId);
-		List<Movement> movements = movementRepository.findByProductOrderByMovementDateAsc(product);
-		log.debug("get movements returned {} records", movements.size());
+		Page<Movement> movements = movementRepository.findByProductOrderByMovementDateAsc(product,pageable);
+		log.debug("get movements returned {} records", movements.getTotalElements());
 		return movements;
 	}
 }
