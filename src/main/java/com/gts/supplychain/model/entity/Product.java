@@ -19,6 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OptimisticLock;
 
 
 @NoArgsConstructor
@@ -45,6 +46,11 @@ public class Product extends Auditable implements Serializable {
 	@NotBlank
 	private String origin;
 
+	/**
+	 * Ensure that changes to the movements collection trigger optimistic lock checks on the parent Product.
+	 * Without this, adding a Movement would not increment the Product version.
+	 */
+	@OptimisticLock(excluded = false)
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
 	@OrderBy("movementDate ASC")
 	private List<Movement> movements = new ArrayList<>();

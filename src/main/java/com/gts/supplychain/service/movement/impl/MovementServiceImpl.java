@@ -12,6 +12,7 @@ import com.gts.supplychain.model.entity.Product;
 import com.gts.supplychain.service.movement.MovementService;
 import com.gts.supplychain.service.movement.mapper.MovementServiceMapper;
 import com.gts.supplychain.service.product.impl.ProductServiceImpl;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +29,7 @@ public class MovementServiceImpl implements MovementService {
 
 
 	@Override
+	@Transactional
 	public Movement recordMovement(String productId, MovementCreateRequest movementCreateRequest) throws BusinessException {
 		log.debug("record movement called for productId: {}, request: {}", productId, movementCreateRequest);
 		Product product = productServiceImpl.getByProductId(productId);

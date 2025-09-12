@@ -11,12 +11,15 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import org.springframework.data.annotation.Immutable;
+
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Immutable
 @Table(name = "movements",
 		indexes = {
 		@Index(name = "idx_movement_product", columnList = "product_id"),

@@ -25,6 +25,14 @@ public class ProductServiceImpl implements ProductService {
 
 
 	@Override
+	public Product createProduct(ProductCreateRequest model) {
+		log.debug("createProduct called with request: {}", model);
+		Product product = productRepository.save(mapper.toProduct(model));
+		log.debug("createProduct saved successfully, productId: {}", product.getId());
+		return product;
+	}
+
+	@Override
 	public Product getByProductId(String productId) throws BusinessException {
 		log.debug("getByProductId called with productId: {}", productId);
 		Product product = productRepository.findByProductId(productId)
@@ -41,11 +49,4 @@ public class ProductServiceImpl implements ProductService {
 		return products;
 	}
 
-	@Override
-	public Product createProduct(ProductCreateRequest model) {
-		log.debug("createProduct called with request: {}", model);
-		Product product = productRepository.save(mapper.toProduct(model));
-		log.debug("createProduct saved successfully, productId: {}", product.getId());
-		return product;
-	}
 }
