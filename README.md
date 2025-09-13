@@ -15,6 +15,7 @@
 - Optimistic locking prevents concurrent update conflicts
 - DTOs (spec objects) separate API and service layers
 - Unified exception responses via `GeneralResponse` / `ResponseService`
+  
 **Running the Project:**  
 The easiest way to run the project is via Docker Compose. After cloning the repository:
 
