@@ -26,5 +26,4 @@ docker-compose up --build -d
 ```
 
 You can access the Swagger UI at http://localhost:8090/swagger-ui/index.html
- and the health endpoint at http://localhost:8090/actuator/health
 .
