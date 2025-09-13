@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  postgres-service:
+    image: postgres:15
+    container_name: postgres_container
+    restart: on-failure
+    ports:
+      - "5433:5432"
+    networks:
+      - my_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: supply_chain_db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d supply_chain_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app-service:
+    build: .
+    container_name: backend_container
+    restart: always
+    ports:
+      - "8090:8090"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-service:5432/supply_chain_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1234
+    depends_on:
+      postgres-service:
+        condition: service_healthy
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
+
+volumes:
+  postgres_data:

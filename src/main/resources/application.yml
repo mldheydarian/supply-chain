@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: supply-chain
+  profiles:
+    active: dev
+
+logging:
+  level:
+    root: info
+
