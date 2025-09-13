@@ -1,6 +1,6 @@
 package com.gts.supplychain.exception;
 
-import com.gts.supplychain.exception.response.ResultStatus;
+import com.gts.supplychain.spec.common.response.ResultStatus;
 
 public abstract class BusinessException extends Exception {
 

@@ -3,9 +3,9 @@ package com.gts.supplychain.exception.handler;
 import java.security.InvalidParameterException;
 
 import com.gts.supplychain.exception.BusinessException;
-import com.gts.supplychain.exception.response.GeneralResponse;
-import com.gts.supplychain.exception.response.ResponseService;
-import com.gts.supplychain.exception.response.ResultStatus;
+import com.gts.supplychain.spec.common.response.GeneralResponse;
+import com.gts.supplychain.spec.common.response.ResponseService;
+import com.gts.supplychain.spec.common.response.ResultStatus;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.dao.DataIntegrityViolationException;

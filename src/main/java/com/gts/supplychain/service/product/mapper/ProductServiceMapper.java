@@ -1,6 +1,6 @@
 package com.gts.supplychain.service.product.mapper;
 
-import com.gts.supplychain.api.product.dto.ProductCreateRequest;
+import com.gts.supplychain.spec.product.request.ProductCreateRequest;
 import com.gts.supplychain.model.entity.Product;
 import org.mapstruct.Mapper;
 

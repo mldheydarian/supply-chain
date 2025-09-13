@@ -1,4 +1,4 @@
-package com.gts.supplychain.exception.response;
+package com.gts.supplychain.spec.common.response;
 
 import java.io.IOException;
 import java.util.Properties;

@@ -6,10 +6,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.gts.supplychain.api.movement.dto.MovementCreateRequest;
-import com.gts.supplychain.api.movement.dto.MovementResponse;
-import com.gts.supplychain.dto.common.response.PageableResponse;
-import com.gts.supplychain.dto.common.request.PagingRequest;
+import com.gts.supplychain.spec.movement.request.MovementCreateRequest;
+import com.gts.supplychain.spec.movement.response.MovementResponse;
+import com.gts.supplychain.spec.common.response.PageableResponse;
+import com.gts.supplychain.spec.common.request.PagingRequest;
 import com.gts.supplychain.api.movement.mapper.MovementResourceMapper;
 import com.gts.supplychain.exception.BusinessException;
 import com.gts.supplychain.model.entity.Movement;

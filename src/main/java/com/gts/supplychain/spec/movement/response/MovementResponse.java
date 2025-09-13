@@ -1,9 +1,9 @@
-package com.gts.supplychain.api.movement.dto;
+package com.gts.supplychain.spec.movement.response;
 
 import java.time.LocalDateTime;
 
 
-import com.gts.supplychain.api.product.dto.ProductResponse;
+import com.gts.supplychain.spec.product.response.ProductResponse;
 import lombok.Data;
 
 @Data

@@ -2,7 +2,7 @@ package com.gts.supplychain.api.product.mapper;
 
 import java.util.List;
 
-import com.gts.supplychain.api.product.dto.ProductResponse;
+import com.gts.supplychain.spec.product.response.ProductResponse;
 import com.gts.supplychain.model.entity.Product;
 import org.mapstruct.Mapper;
 

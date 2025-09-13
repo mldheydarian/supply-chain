@@ -10,10 +10,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.gts.supplychain.AbstractIntegrationTest;
-import com.gts.supplychain.api.movement.dto.MovementCreateRequest;
-import com.gts.supplychain.api.movement.dto.MovementResponse;
-import com.gts.supplychain.api.product.dto.ProductCreateRequest;
-import com.gts.supplychain.dto.common.response.PageableResponse;
+import com.gts.supplychain.spec.movement.request.MovementCreateRequest;
+import com.gts.supplychain.spec.movement.response.MovementResponse;
+import com.gts.supplychain.spec.product.request.ProductCreateRequest;
+import com.gts.supplychain.spec.common.response.PageableResponse;
 
 import com.gts.supplychain.model.entity.Movement;
 import com.gts.supplychain.model.entity.Product;

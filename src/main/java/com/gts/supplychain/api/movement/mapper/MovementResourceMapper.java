@@ -3,7 +3,7 @@ package com.gts.supplychain.api.movement.mapper;
 
 import java.util.List;
 
-import com.gts.supplychain.api.movement.dto.MovementResponse;
+import com.gts.supplychain.spec.movement.response.MovementResponse;
 import com.gts.supplychain.model.entity.Movement;
 import org.mapstruct.Mapper;
 

@@ -1,6 +1,6 @@
 package com.gts.supplychain.service.movement.mapper;
 
-import com.gts.supplychain.api.movement.dto.MovementCreateRequest;
+import com.gts.supplychain.spec.movement.request.MovementCreateRequest;
 import com.gts.supplychain.model.entity.Movement;
 import com.gts.supplychain.model.entity.Product;
 import org.mapstruct.BeanMapping;

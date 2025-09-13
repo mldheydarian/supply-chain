@@ -1,4 +1,4 @@
-package com.gts.supplychain.api.movement.dto;
+package com.gts.supplychain.spec.movement.request;
 
 import java.time.LocalDateTime;
 

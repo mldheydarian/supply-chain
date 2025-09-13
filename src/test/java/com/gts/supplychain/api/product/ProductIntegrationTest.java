@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gts.supplychain.AbstractIntegrationTest;
-import com.gts.supplychain.api.product.dto.ProductCreateRequest;
-import com.gts.supplychain.api.product.dto.ProductResponse;
-import com.gts.supplychain.dto.common.response.PageableResponse;
+import com.gts.supplychain.spec.product.request.ProductCreateRequest;
+import com.gts.supplychain.spec.product.response.ProductResponse;
+import com.gts.supplychain.spec.common.response.PageableResponse;
 import com.gts.supplychain.model.entity.Product;
 import com.gts.supplychain.model.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;

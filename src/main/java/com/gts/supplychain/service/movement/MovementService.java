@@ -1,6 +1,6 @@
 package com.gts.supplychain.service.movement;
 
-import com.gts.supplychain.api.movement.dto.MovementCreateRequest;
+import com.gts.supplychain.spec.movement.request.MovementCreateRequest;
 import com.gts.supplychain.exception.BusinessException;
 import com.gts.supplychain.model.entity.Movement;
 

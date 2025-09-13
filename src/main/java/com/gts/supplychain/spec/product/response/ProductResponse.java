@@ -1,4 +1,4 @@
-package com.gts.supplychain.api.product.dto;
+package com.gts.supplychain.spec.product.response;
 
 import java.time.LocalDateTime;
 

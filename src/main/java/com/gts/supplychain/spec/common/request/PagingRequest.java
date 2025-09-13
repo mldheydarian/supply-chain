@@ -1,4 +1,4 @@
-package com.gts.supplychain.dto.common.request;
+package com.gts.supplychain.spec.common.request;
 
 import java.util.List;
 

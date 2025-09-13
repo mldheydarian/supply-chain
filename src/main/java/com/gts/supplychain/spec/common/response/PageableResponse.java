@@ -1,4 +1,4 @@
-package com.gts.supplychain.dto.common.response;
+package com.gts.supplychain.spec.common.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
