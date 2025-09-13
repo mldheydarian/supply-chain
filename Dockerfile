@@ -1,16 +1,12 @@
-FROM eclipse-temurin:17-jdk-alpine AS build
-RUN apk add --no-cache bash git
+FROM maven:3.9.2-eclipse-temurin-17 AS build
 WORKDIR /app
-COPY . .
-RUN chmod +x mvnw
-RUN ./mvnw clean package -DskipTests -Pprod
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-FROM eclipse-temurin:17-jdk-alpine
+FROM openjdk:17-jdk-alpine
 WORKDIR /app
-COPY --from=build /app/target/*.jar /app/supply-chain.jar
-COPY ./src/main/resources/application-prod.properties /app/
-COPY ./src/main/resources/application.yml /app/
-
-EXPOSE 8090
-
-CMD ["java", "-jar", "supply-chain.jar", "--spring.config.location=/app/application-prod.properties"]
+COPY --from=build /app/target/*.jar ./app.jar
+COPY src/main/resources/application-prod.properties ./application-prod.properties
+EXPOSE 8089
+CMD ["java", "-jar", "app.jar", "--spring.profiles.active=prod"]
