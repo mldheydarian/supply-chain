@@ -25,17 +25,13 @@ public class PagingRequest {
 	@Schema(example = "ASC", description = "Sorting direction: ASC or DESC")
 	private SortDirection direction = SortDirection.ASC;
 
-	@Schema(example = "[\"id\",\"createdAt\"]",
-			description = "List of fields to sort by")
-	private List<String> sortKeys = List.of("id");
+	@Schema(example = "id", description = "Field to sort by")
+	private String sortKey = "id";
 
 	public Pageable toPageable() {
 		Sort sort = Sort.by(
-				sortKeys.stream()
-						.map(key -> new Sort.Order(
-								direction == SortDirection.ASC ? Sort.Direction.ASC : Sort.Direction.DESC,
-								key))
-						.toList()
+				direction == SortDirection.ASC ? Sort.Direction.ASC : Sort.Direction.DESC,
+				sortKey
 		);
 		return PageRequest.of(page, size, sort);
 	}
