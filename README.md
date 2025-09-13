@@ -19,7 +19,7 @@
 The easiest way to run the project is via Docker Compose. After cloning the repository:
 
 ```bash
-git clone https://github.com/<your-username>/supply-chain.git
+git clone https://github.com/mldheydarian/supply-chain-assessment-.git
 cd supply-chain
 docker-compose up --build -d
 ```
