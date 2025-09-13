@@ -50,7 +50,7 @@ class ProductIntegrationTest extends AbstractIntegrationTest {
 		request.setManufacturingDate(LocalDateTime.now());
 
 		ResponseEntity<ProductResponse> response = restTemplate.postForEntity(
-				"/products", request, ProductResponse.class);
+				"/api/products", request, ProductResponse.class);
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertNotNull(response.getBody());
@@ -71,7 +71,7 @@ class ProductIntegrationTest extends AbstractIntegrationTest {
 		request.setManufacturingDate(LocalDateTime.now());
 
 		ResponseEntity<ProductResponse> response = restTemplate.postForEntity(
-				"/products", request, ProductResponse.class);
+				"/api/products", request, ProductResponse.class);
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 
 		ProductCreateRequest duplicateRequest = new ProductCreateRequest();
@@ -96,7 +96,7 @@ class ProductIntegrationTest extends AbstractIntegrationTest {
 		productRepository.save(product);
 
 		ResponseEntity<ProductResponse> response = restTemplate.getForEntity(
-				"/products/{productId}", ProductResponse.class, "P-002"
+				"/api/products/{productId}", ProductResponse.class, "P-002"
 		);
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -123,7 +123,7 @@ class ProductIntegrationTest extends AbstractIntegrationTest {
 		productRepository.saveAll(List.of(p1, p2));
 
 		ResponseEntity<PageableResponse<ProductResponse>> response = restTemplate.exchange(
-				"/products?page=0&size=10",
+				"/api/products?page=0&size=10",
 				HttpMethod.GET,
 				null,
 				new ParameterizedTypeReference<PageableResponse<ProductResponse>>() {}
